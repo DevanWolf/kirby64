@@ -92,7 +92,7 @@ block_10:
             }
         }
     }
-    else if ((gKirbyState.abilityInUse != 0x13) && (D_800D6FAC == 0) && ((gKirbyController.buttonPressed & 0x8000) != 0) && (gKirbyState.floatTimer != 0) && (gKirbyState.unk4 == 0) && (D_800E8920[temp_v0] == 0)) {
+    else if ((gKirbyState.abilityInUse != 0x13) && (D_800D6FAC == 0) && ((gKirbyController.buttonPressed & 0x8000) != 0) && (gKirbyState.unk4 == 0) && (D_800E8920[temp_v0] == 0)) {
         gKirbyState.unk7 = 0;
         gKirbyState.unk44 = 0;
         set_kirby_action_1(0xC, 9);
@@ -523,5 +523,3 @@ u32 ovl3_process_command_string(u8 *arg0) {
 #else
 GLOBAL_ASM("asm/non_matchings/ovl3/ovl3/func_80151E94_ovl3.s")
 #endif
-
-
