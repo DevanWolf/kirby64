@@ -155,7 +155,6 @@ struct KirbyState {
     u8 unk19;
     u8 unk1A;
     u8 unk1B;
-    u32 floatTimer;				// 0x1C
     s32 turnDirection;			// 0x20
     u32 unk24;
     u32 unk28;
@@ -321,4 +320,3 @@ struct KirbyState {
 };
 
 #endif /* TYPES_H */
-
