@@ -151,7 +151,6 @@ void func_8016BF60_ovl3(struct GObj *arg0) {
     if (gKirbyState.unk4 != 0) {
         func_8011CCB8();
     }
-    gKirbyState.floatTimer = 0xF0;
     D_80198830.unk0 = 0;
     D_80198830.unk2 = 2;
     if (D_800BE4FC == 2) {
@@ -246,8 +245,6 @@ void func_8016C510_ovl3(struct GObj *arg0) {
 
 extern f32 gKirbyHp;
 extern s32 D_800D6B54;
-extern u32 gGameTampered;
-
 
 extern s32 D_80193168;
 extern f32 D_80197344;
@@ -341,11 +338,6 @@ void func_8016C558_ovl3(struct GObj *arg0) {
         gKirbyState.unk16--;
     }
     if (D_800E8920[D_8004A7C4->objId] != 0) {
-        if (gGameTampered != 0) {
-            gKirbyState.floatTimer = random_soft_s32_range(0x3C) + 0x5A;
-        } else {
-            gKirbyState.floatTimer = 0xF0;
-        }
         gKirbyState.unkBA = 0;
     }
     if (gKirbyState.action != 0x17) {
@@ -2010,25 +2002,7 @@ void func_80170AC4_ovl3(struct GObj *arg0) {
     f32 phi_f20;
 
     temp_v0 = gKirbyState.unk44;
-    if (temp_v0 != 0) {
-        if (temp_v0 != 1) {
-            if (temp_v0 == 2) {
-block_8:
-                temp_v0_5 = D_8004A7C4;
-                D_800E3210[temp_v0_5->objId] = 0.0f;
-                D_800E3750[temp_v0_5->objId] = -0.125f;
-                D_800E3C90[temp_v0_5->objId] = 2.0f;
-                func_801230E8(0x20099, 0x2009A, 0);
-                temp_f22 = D_801973AC;
-                phi_f20 = 2.0f;
-loop_9:
-                func_800AECC0(phi_f20);
-                func_800AED20(phi_f20);
-                finish_current_thread(1);
-                phi_f20 = phi_f20 + temp_f22;
-                goto loop_9;
-            }
-        } else {
+    if (temp_v0 == 0) {
 block_7:
             play_sound(0xE0);
             gKirbyState.unk2C = 3;
@@ -2055,10 +2029,6 @@ block_7:
         D_800E3210[temp_v1] = D_800E3750[temp_v1];
         func_800AFA54(*(&D_800DFA10 + (temp_v0_2->objId * 4)));
         func_801230E8(0x20093, 0x20094, 1);
-        if (gKirbyState.floatTimer < 0x3C) {
-            gKirbyState.unk44 = 2;
-            goto block_8;
-        }
         gKirbyState.unk44 = 1;
         goto block_7;
     }
@@ -2110,34 +2080,7 @@ void func_80170D88_ovl3(struct GObj *arg0) {
         temp_v0 = gKirbyState.unkB;
         if ((temp_v0 != 1) && (temp_v0 != 2)) {
 block_7:
-            temp_v1_2 = gKirbyState.floatTimer;
             phi_t0_2 = &gKirbyState;
-            if (temp_v1_2 != 0) {
-                phi_v1 = temp_v1_2;
-                phi_t0 = &gKirbyState;
-                if (gKirbyState.unk44 == 1) {
-                    if (gKirbyState.unk4C == 0) {
-                        phi_v1 = temp_v1_2;
-                        phi_t0 = &gKirbyState;
-                        if (temp_v1_2 < 0x5B) {
-                            gKirbyState.unk4C = func_800A8100(2, 1, 0xB, D_800DFBD0[D_8004A7C4->objId][9]);
-block_14:
-                            phi_v1 = gKirbyState.floatTimer;
-                            phi_t0 = &gKirbyState;
-                        }
-                    } else {
-                        phi_v1 = temp_v1_2;
-                        phi_t0 = &gKirbyState;
-                        if (temp_v1_2 == 0x3C) {
-                            gKirbyState.unk44 = 2;
-                            assign_new_process_entry(*(&gEntityGObjProcessArray + (D_8004A7C4->objId * 4)), &D_8016C510);
-                            goto block_14;
-                        }
-                    }
-                }
-                phi_t0->floatTimer = phi_v1 - 1;
-                phi_t0_2 = phi_t0;
-            }
             if ((phi_t0_2->isTurning & 1) == 0) {
                 if ((D_800D6FEA & 0x4000) != 0) {
 block_23:
@@ -2160,9 +2103,6 @@ block_23:
                     return;
                 }
                 if (phi_t0_2->unk17 != 0) {
-                    goto block_23;
-                }
-                if (phi_t0_2->floatTimer == 0) {
                     goto block_23;
                 }
                 if (phi_t0_2->unkA == 1) {
@@ -5361,7 +5301,7 @@ block_48:
             set_kirby_action_1(1, 3);
             return;
         }
-    } else if ((D_800D6FAC == 0) && ((D_800D6FEA & 0x8000) != 0) && (gKirbyState.floatTimer != 0)) {
+    } else if ((D_800D6FAC == 0) && ((D_800D6FEA & 0x8000) != 0)) {
         if ((D_800E8AE0[temp_v1_5] & 6) != 0) {
             set_kirby_action_1(0x17, 0x1B);
             return;
